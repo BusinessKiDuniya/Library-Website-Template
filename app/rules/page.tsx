@@ -3,9 +3,9 @@ import { RULES } from "@/lib/data";
 import { Shield, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Library Rules & Guidelines",
+  title: "Library Rules & Guidelines — Ayoddhya Library",
   description:
-    "Rules and guidelines at Athenaeum Study Hall — conduct, food policy, entry, lockers, and security policies for all members.",
+    "Rules and guidelines at Ayoddhya Library — conduct, food policy, entry, lockers, and security policies for all members.",
 };
 
 export default function RulesPage() {
@@ -57,8 +57,8 @@ export default function RulesPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-gray-500 text-sm mb-4">By joining Athenaeum Study Hall, you agree to follow these rules.</p>
-            <a href="/booking" className="btn-primary inline-flex">Book a Seat</a>
+            <p className="text-gray-500 text-sm mb-4">By joining Ayoddhya Library, you agree to follow these rules.</p>
+            <a href="/contact" className="btn-primary inline-flex">Connect With Us</a>
           </div>
         </div>
       </section>

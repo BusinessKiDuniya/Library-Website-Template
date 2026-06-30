@@ -16,7 +16,7 @@ import {
   MessageSquare,
   Loader2,
 } from "lucide-react";
-import { PLANS } from "@/lib/data";
+import { PLANS, SITE } from "@/lib/data";
 import Link from "next/link";
 
 const bookingSchema = z.object({
@@ -72,7 +72,7 @@ export default function BookingClient() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase border border-gold-500/30 bg-gold-500/10 text-gold-400 mb-6"
           >
-            Reserve Your Spot
+            Connect With Us
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -80,8 +80,8 @@ export default function BookingClient() {
             transition={{ delay: 0.1 }}
             className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white mb-6"
           >
-            Book Your
-            <span className="italic text-gold-400"> Study Seat</span>
+            Reserve Your
+            <span className="italic text-gold-400"> Spot</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -89,8 +89,7 @@ export default function BookingClient() {
             transition={{ delay: 0.2 }}
             className="text-gray-300 text-xl max-w-xl mx-auto"
           >
-            Fill in your details and we&apos;ll confirm your booking within 30
-            minutes. Free 3-hour trial for first-time visitors.
+            Fill in your details and our team will confirm via WhatsApp within 30 minutes. We&apos;re excited to welcome you.
           </motion.p>
         </div>
       </section>
@@ -109,22 +108,22 @@ export default function BookingClient() {
                   {
                     step: "01",
                     title: "Fill the form",
-                    desc: "Provide your details and preferred slot.",
+                    desc: "Tell us your study goals and preferred slot.",
                   },
                   {
                     step: "02",
                     title: "Confirmation",
-                    desc: "We confirm via WhatsApp/phone within 30 minutes.",
+                    desc: "Our team confirms via WhatsApp within 30 minutes.",
                   },
                   {
                     step: "03",
-                    title: "Visit & Settle In",
-                    desc: "Arrive at the library with a valid ID. We&apos;ll set you up.",
+                    title: "Visit the library",
+                    desc: "Stop by the 2nd, 3rd, or 4th floor with a valid ID.",
                   },
                   {
                     step: "04",
-                    title: "Start Studying",
-                    desc: "Experience premium focus from your very first session.",
+                    title: "Begin your routine",
+                    desc: "Step into a sanctuary built for serious, focused study.",
                   },
                 ].map((s) => (
                   <div key={s.step} className="flex gap-4">
@@ -142,11 +141,10 @@ export default function BookingClient() {
               </div>
               <div className="mt-10 p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
                 <p className="text-emerald-800 font-semibold text-sm mb-1">
-                  🎁 First visit? It&apos;s free!
+                  Reach us on WhatsApp first
                 </p>
                 <p className="text-emerald-700 text-sm">
-                  First-time visitors get a complimentary 3-hour trial session,
-                  no strings attached.
+                  The fastest way to get answers about plans, slots, and Executive Room availability is a quick WhatsApp message.
                 </p>
               </div>
             </div>
@@ -236,10 +234,10 @@ export default function BookingClient() {
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-navy-950/20 focus:border-navy-950 transition-all bg-white"
                           >
                             <option value="">Select a plan</option>
-                            <option value="trial">Free Trial (3 hours)</option>
+                            <option value="connect">Connect via WhatsApp for pricing</option>
                             {PLANS.map((p) => (
                               <option key={p.id} value={p.id}>
-                                {p.name} — ₹{p.price}
+                                {p.name} {p.price !== null && p.price !== undefined ? `— ₹${p.price}` : "— Contact for pricing"} ({p.duration})
                               </option>
                             ))}
                           </select>
@@ -371,7 +369,7 @@ export default function BookingClient() {
                     <p className="text-gray-500 text-lg mb-8">
                       Thank you! We&apos;ll confirm your booking via WhatsApp
                       and email within 30 minutes. We&apos;re excited to welcome
-                      you to Athenaeum!
+                      you to {SITE.name}!
                     </p>
                     <Link href="/" className="btn-primary inline-flex">
                       Back to Home

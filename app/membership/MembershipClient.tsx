@@ -2,78 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, X, ArrowRight, Star, Zap, CreditCard, Smartphone, Building } from "lucide-react";
-import { PLANS } from "@/lib/data";
+import { Check, ArrowRight, Star, Zap, CreditCard, Smartphone, Building, MessageCircle } from "lucide-react";
+import { PLANS, SITE } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
-
-const allFeatures = [
-  "120 seats access (6 AM – 11 PM)",
-  "High-speed Wi-Fi",
-  "Power backup",
-  "RO water access",
-  "CCTV security",
-  "Charging at every seat",
-  "Free parking",
-  "1 locker (shared)",
-  "Priority seat selection",
-  "1 free cabin session/week",
-  "1 dedicated locker",
-  "Dedicated cabin access (1/day)",
-  "Premium dedicated locker",
-  "Guest pass (2/month)",
-  "Free printing (100 pages)",
-  "Study group room access",
-  "Unlimited cabin access",
-  "Reserved seat guarantee",
-  "Unlimited printing",
-  "Guest passes (5/month)",
-  "Personal study coach",
-];
-
-const planFeatureMap: Record<string, string[]> = {
-  monthly: [
-    "120 seats access (6 AM – 11 PM)",
-    "High-speed Wi-Fi",
-    "Power backup",
-    "RO water access",
-    "CCTV security",
-    "Charging at every seat",
-    "Free parking",
-    "1 locker (shared)",
-  ],
-  quarterly: [
-    "120 seats access (6 AM – 11 PM)",
-    "High-speed Wi-Fi",
-    "Power backup",
-    "RO water access",
-    "CCTV security",
-    "Charging at every seat",
-    "Free parking",
-    "1 locker (shared)",
-    "Priority seat selection",
-    "1 free cabin session/week",
-    "1 dedicated locker",
-  ],
-  "half-yearly": [
-    "120 seats access (6 AM – 11 PM)",
-    "High-speed Wi-Fi",
-    "Power backup",
-    "RO water access",
-    "CCTV security",
-    "Charging at every seat",
-    "Free parking",
-    "1 locker (shared)",
-    "Priority seat selection",
-    "1 free cabin session/week",
-    "1 dedicated locker",
-    "Dedicated cabin access (1/day)",
-    "Premium dedicated locker",
-    "Guest pass (2/month)",
-    "Free printing (100 pages)",
-    "Study group room access",
-  ],
-  yearly: allFeatures,
-};
 
 const paymentMethods = [
   { icon: CreditCard, label: "Credit / Debit Card" },
@@ -81,6 +12,10 @@ const paymentMethods = [
   { icon: Building, label: "Net Banking" },
   { icon: CreditCard, label: "Cash at Reception" },
 ];
+
+// Union of every plan's features so the comparison rows cover everything
+// offered without us hand-curating a separate list.
+const allFeatures = Array.from(new Set(PLANS.flatMap((p) => p.features)));
 
 export default function MembershipClient() {
   return (
@@ -107,7 +42,7 @@ export default function MembershipClient() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="text-gray-300 text-xl max-w-xl mx-auto"
           >
-            Transparent pricing. Zero hidden fees. Cancel or upgrade anytime.
+            Every plan unlocks the full {SITE.name} ecosystem. Connect with us for current pricing — we&apos;ll craft a plan that fits your goals.
           </motion.p>
         </div>
       </section>
@@ -141,9 +76,11 @@ export default function MembershipClient() {
                     <span className={`text-xs font-bold uppercase tracking-widest ${plan.popular ? "text-gold-400" : "text-gray-400"}`}>{plan.name}</span>
                     {plan.popular && <Zap className="w-4 h-4 text-gold-400" />}
                   </div>
-                  <div className="font-display font-bold text-4xl mb-1 ${plan.popular ? 'text-white' : 'text-navy-950'}">
-                    {formatPrice(plan.price)}
-                    <span className={`text-sm ml-1 font-normal ${plan.popular ? "text-gray-400" : "text-gray-400"}`}>/{plan.duration}</span>
+                  <div className={`font-display font-bold text-2xl mb-1 ${plan.popular ? "text-white" : "text-navy-950"}`}>
+                    {plan.price !== null && plan.price !== undefined ? formatPrice(plan.price) : "Connect for pricing"}
+                    {plan.price !== null && plan.price !== undefined && (
+                      <span className={`text-sm ml-1 font-normal ${plan.popular ? "text-gray-400" : "text-gray-400"}`}>/ {plan.duration}</span>
+                    )}
                   </div>
                   <p className={`text-sm ${plan.popular ? "text-gray-400" : "text-gray-500"}`}>{plan.description}</p>
                 </div>
@@ -158,13 +95,20 @@ export default function MembershipClient() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/booking" className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl font-semibold text-sm transition-all group ${
+                <Link href="/contact" className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl font-semibold text-sm transition-all group ${
                   plan.popular ? "bg-gold-500 text-navy-950 hover:bg-gold-400" : "bg-navy-950 text-white hover:bg-navy-900"
                 }`}>
                   {plan.cta} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
             ))}
+          </div>
+
+          {/* Helper note about pricing */}
+          <div className="mt-10 max-w-2xl mx-auto text-center p-5 rounded-2xl bg-gold-50 border border-gold-100">
+            <p className="text-gold-900 text-sm font-medium">
+              Pricing is shared personally over WhatsApp so we can recommend the plan that fits your preparation window.
+            </p>
           </div>
         </div>
       </section>
@@ -197,10 +141,10 @@ export default function MembershipClient() {
                     <td className="px-6 py-3.5 text-gray-700">{feature}</td>
                     {PLANS.map((p) => (
                       <td key={p.id} className="px-4 py-3.5 text-center">
-                        {planFeatureMap[p.id]?.includes(feature) ? (
+                        {p.features.includes(feature) ? (
                           <Check className="w-4 h-4 text-emerald-600 mx-auto" />
                         ) : (
-                          <X className="w-4 h-4 text-gray-200 mx-auto" />
+                          <span className="text-gray-300">—</span>
                         )}
                       </td>
                     ))}
@@ -221,13 +165,13 @@ export default function MembershipClient() {
               <h2 className="font-display font-bold text-3xl text-navy-950 mb-6">Membership Policies</h2>
               <div className="space-y-4">
                 {[
-                  { title: "Free Trial", desc: "Every new visitor gets a complimentary 3-hour trial session with no obligation to purchase." },
-                  { title: "Student Discount", desc: "10% off all plans for students with a valid college/school ID card at the time of registration." },
-                  { title: "Group Discount", desc: "Register 3 or more members together and get 15% off for all of them." },
-                  { title: "Renewal Discount", desc: "Renew your membership before expiry and receive ₹200 off your next plan." },
-                  { title: "Referral Bonus", desc: "Refer a friend — both of you get ₹200 off. No limit on referrals." },
-                  { title: "Pause Policy", desc: "Members on Half-Yearly or Yearly plans can pause membership for up to 7 days per year." },
-                  { title: "Refund Policy", desc: "3-day no-questions-asked refund. Pro-rated refunds available after that via written request." },
+                  { title: "Transparent Pricing", desc: "We share rates personally via WhatsApp so every member knows exactly what they pay for." },
+                  { title: "Flexible Plans", desc: "Switch between monthly, quarterly, half-yearly, and yearly as your preparation window changes." },
+                  { title: "Executive Room Add-On", desc: "Upgrade to the exclusive 10-seat Executive Room with private lift access, subject to availability." },
+                  { title: "Cafeteria Access", desc: "Every plan includes access to the dedicated cafeteria floor with subsidised meals." },
+                  { title: "Mentorship Access", desc: "Coffee with Sir sessions and career guidance are included across all plans, free of cost." },
+                  { title: "Pause Policy", desc: "Members on Half-Yearly or Yearly plans can pause membership for up to 7 days per year, with prior notice." },
+                  { title: "Refund Policy", desc: "Reach out via WhatsApp within the first 3 days for a full refund — no questions asked. See Refund Policy for details." },
                 ].map((p, i) => (
                   <motion.div
                     key={p.title}
@@ -243,7 +187,7 @@ export default function MembershipClient() {
             </div>
             {/* Payment Methods */}
             <div>
-              <h2 className="font-display font-bold text-3xl text-navy-950 mb-6">Payment Methods</h2>
+              <h2 className="font-display font-bold text-3xl text-navy-950 mb-6">Payment & Connect</h2>
               <div className="grid grid-cols-2 gap-4 mb-10">
                 {paymentMethods.map((m) => (
                   <div key={m.label} className="premium-card p-5 flex items-center gap-3">
@@ -255,11 +199,24 @@ export default function MembershipClient() {
                 ))}
               </div>
               <div className="bg-navy-950 rounded-3xl p-8 text-white text-center">
+                <MessageCircle className="w-10 h-10 text-gold-400 mx-auto mb-4" />
                 <h3 className="font-display font-bold text-2xl mb-3">Ready to Join?</h3>
-                <p className="text-gray-300 text-sm mb-6">Start with a free trial or book directly. We&apos;ll confirm within 30 minutes.</p>
-                <Link href="/booking" className="btn-gold w-full justify-center inline-flex">
-                  Book Your Seat <ArrowRight className="w-4 h-4" />
-                </Link>
+                <p className="text-gray-300 text-sm mb-6">
+                  Send us a WhatsApp message or use the Connect Portal — we&apos;ll respond within minutes with the plan that fits you.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href={`https://wa.me/${SITE.whatsapp}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gold inline-flex justify-center"
+                  >
+                    WhatsApp Us <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <Link href="/contact" className="btn-outline border-white/20 text-white hover:bg-white/10 inline-flex justify-center">
+                    Connect Portal
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

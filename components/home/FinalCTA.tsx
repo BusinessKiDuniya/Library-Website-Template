@@ -35,7 +35,7 @@ export default function FinalCTA() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase border border-gold-500/30 bg-gold-500/10 text-gold-400 mb-6"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              Limited Seats Available
+              The Original Benchmark of Excellence
             </motion.div>
 
             <motion.h2
@@ -44,10 +44,10 @@ export default function FinalCTA() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-tight"
             >
-              Ready to Transform
+              Step Into a
               <br />
               <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-300">
-                Your Study Life?
+                Sanctuary for Focus
               </span>
             </motion.h2>
 
@@ -57,8 +57,8 @@ export default function FinalCTA() {
               transition={{ delay: 0.4 }}
               className="text-gray-300 text-lg max-w-xl mx-auto mb-10"
             >
-              Join 4,800+ members who chose a premium environment for serious study.
-              Book your seat today and feel the difference from day one.
+              Three floors of premium silence. A dedicated cafeteria floor. The only Executive Room in the vicinity.
+              Connect with us and find your seat.
             </motion.p>
 
             <motion.div
@@ -67,12 +67,12 @@ export default function FinalCTA() {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link href="/booking" className="btn-gold group">
-                Book Your Seat Now
+              <Link href="/contact" className="btn-gold group">
+                Connect With Us
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="btn-outline-white">
-                Talk to Us First
+              <Link href="/facilities" className="btn-outline-white">
+                Explore the Ecosystem
               </Link>
             </motion.div>
 
@@ -82,7 +82,7 @@ export default function FinalCTA() {
               transition={{ delay: 0.7 }}
               className="text-gray-500 text-sm mt-6"
             >
-              Free 3-hour trial for first-time visitors • No credit card required
+              Reach us on WhatsApp · Visit us in person · Fill the Connect Portal form
             </motion.p>
           </div>
         </motion.div>

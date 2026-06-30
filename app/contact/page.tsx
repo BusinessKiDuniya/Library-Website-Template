@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Get in Touch",
+  title: "Contact Us — Ayoddhya Library",
   description:
-    "Contact Athenaeum Study Hall via phone, WhatsApp, email, or visit us in person at Sector 62, Noida. We respond within 2 hours.",
+    "Reach Ayoddhya Library via WhatsApp, phone, or visit us at 2nd, 3rd, 4th Floor, A-1/31,32, Sec-06 Rohini, Ayodhya Chowk, Delhi 110085.",
 };
 
 export default function ContactPage() {

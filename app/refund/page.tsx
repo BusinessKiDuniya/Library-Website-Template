@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Refund Policy",
+  title: "Refund Policy — Ayoddhya Library",
   description:
-    "Athenaeum Study Hall Refund Policy — 3-day full refund, pro-rated refunds, and exceptions. Transparent and fair.",
+    "Ayoddhya Library Refund Policy — full refund, pro-rated refunds, and exceptions. Transparent and fair.",
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -43,7 +43,7 @@ export default function RefundPage() {
           </div>
 
           <Section title="1. Full Refund Period (0–3 Days)">
-            <p>If you are unsatisfied for any reason within 3 days of your membership start date, you are entitled to a full refund — no questions asked. Submit your refund request via email to {SITE.email} within this window to qualify.</p>
+            <p>If you are unsatisfied for any reason within 3 days of your membership start date, you are entitled to a full refund — no questions asked. Submit your refund request via WhatsApp to {SITE.phone} within this window to qualify.</p>
           </Section>
           <Section title="2. Pro-Rated Refund (4–30 Days)">
             <p>After the 3-day period and up to 30 days, a pro-rated refund is available based on the unused days remaining in your membership period. The refund amount is calculated as:</p>
@@ -62,14 +62,14 @@ export default function RefundPage() {
           </Section>
           <Section title="4. How to Request a Refund">
             <ol className="list-decimal pl-5 space-y-2">
-              <li>Email {SITE.email} with the subject line <strong>&quot;Refund Request — [Your Name]&quot;</strong>.</li>
+              <li>Send a WhatsApp message to {SITE.phone} with the subject line <strong>&quot;Refund Request — [Your Name]&quot;</strong>.</li>
               <li>Include your registered phone number, plan name, and purchase date.</li>
               <li>Our team will review your request within 1 business day and confirm eligibility.</li>
               <li>Approved refunds will be processed within 7–10 business days.</li>
             </ol>
           </Section>
           <Section title="5. Contact">
-            <p>For refund-related queries, reach us at {SITE.email} or WhatsApp {SITE.phone}. We aim to resolve all refund requests fairly and quickly.</p>
+            <p>For refund-related queries, reach us via WhatsApp at {SITE.phone}. We aim to resolve all refund requests fairly and quickly.</p>
           </Section>
         </div>
       </section>

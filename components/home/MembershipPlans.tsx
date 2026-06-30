@@ -79,8 +79,8 @@ export default function MembershipPlans() {
                   {plan.popular && <Zap className="w-4 h-4 text-gold-400" />}
                 </div>
                 <div className="mb-2">
-                  <span className={`font-display font-bold text-4xl ${plan.popular ? "text-white" : "text-navy-950"}`}>
-                    {formatPrice(plan.price)}
+                  <span className={`font-display font-bold text-3xl sm:text-4xl ${plan.popular ? "text-white" : "text-navy-950"}`}>
+                    {plan.price !== null && plan.price !== undefined ? formatPrice(plan.price) : "Connect for pricing"}
                   </span>
                   <span className={`text-sm ml-1 ${plan.popular ? "text-gray-400" : "text-gray-400"}`}>
                     /{plan.duration}
@@ -131,9 +131,9 @@ export default function MembershipPlans() {
           transition={{ delay: 0.7 }}
           className="text-center text-sm text-gray-400 mt-10"
         >
-          All plans include free parking, RO water, and CCTV security. •{" "}
-          <Link href="/membership" className="text-navy-950 font-medium underline underline-offset-2 hover:text-gold-600 transition-colors">
-            Compare all features →
+          All plans include Wi-Fi, smart ACs, oversized desks, and full-time support. •{" "}
+          <Link href="/contact" className="text-navy-950 font-medium underline underline-offset-2 hover:text-gold-600 transition-colors">
+            Connect for pricing & details →
           </Link>
         </motion.p>
       </div>

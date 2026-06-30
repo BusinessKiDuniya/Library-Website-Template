@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import MembershipClient from "./MembershipClient";
 
 export const metadata: Metadata = {
-  title: "Membership Plans — Monthly, Quarterly, Half-Yearly, Yearly",
+  title: "Membership Plans — Ayoddhya Library",
   description:
-    "Compare all Athenaeum Study Hall membership plans. Transparent pricing with all features listed. No hidden fees. Monthly starting at ₹1,499.",
+    "Compare Ayoddhya Library membership plans — Monthly, Quarterly, Half-Yearly, Yearly, Executive Room, and Cafeteria add-on. Connect via WhatsApp for current pricing.",
 };
 
 export default function MembershipPage() {

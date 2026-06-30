@@ -11,9 +11,9 @@ import FAQ from "@/components/home/FAQ";
 import FinalCTA from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Athenaeum Study Hall — Premium Study Library in Noida",
+  title: "Ayoddhya Library — Nurturing Minds, Shaping Tomorrow",
   description:
-    "Join Noida's #1 premium study library. Silent environment, high-speed Wi-Fi, 120+ seats, private cabins, and 24/7 CCTV. Start with a free trial today.",
+    "Ayoddhya Library in Rohini, Delhi — a sanctuary for the focused mind. Three floors, private lift, Executive Room, dedicated cafeteria floor, and a Teacher's Mindset that nurtures potential and discipline.",
 };
 
 export default function HomePage() {

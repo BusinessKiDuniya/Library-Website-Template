@@ -21,10 +21,14 @@ const playfair = Playfair_Display({
   preload: true,
 });
 
+// Ayoddhya's canonical web property — used as the metadataBase so any
+// image URLs resolved by Next.js root off this domain.
+const SITE_URL = "https://ayoddhyalibrary.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://atheneumstudy.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} — Premium Study Library in Noida`,
+    default: `${SITE.name} — Nurturing Minds, Shaping Tomorrow`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -32,27 +36,29 @@ export const metadata: Metadata = {
     "study library",
     "reading hall",
     "study space",
-    "study room Noida",
+    "study room Delhi",
+    "study room Rohini",
     "library membership",
     "premium study hall",
     "silent library",
     "UPSC study hall",
     "CA study library",
     "competitive exam library",
-    "Athenaeum Study Hall",
+    "Ayoddhya Library",
+    "Ayodhya Chowk library",
   ],
   authors: [{ name: SITE.name }],
   creator: SITE.name,
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://atheneumstudy.com",
-    title: `${SITE.name} — Premium Study Library in Noida`,
+    url: SITE_URL,
+    title: `${SITE.name} — Nurturing Minds, Shaping Tomorrow`,
     description: SITE.description,
     siteName: SITE.name,
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/ayoddhya/hero/library-setup.jpg",
         width: 1200,
         height: 630,
         alt: `${SITE.name} — Premium Study Library`,
@@ -61,10 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Premium Study Library in Noida`,
+    title: `${SITE.name} — Nurturing Minds, Shaping Tomorrow`,
     description: SITE.description,
-    images: ["/og-image.jpg"],
-    creator: "@atheneumstudy",
+    images: ["/ayoddhya/hero/library-setup.jpg"],
   },
   robots: {
     index: true,
@@ -77,9 +82,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
 };
 
 export default function RootLayout({
@@ -87,6 +89,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // JSON-LD structured data for SEO. We omit the optional email and
+  // openingHoursSpecification fields since Ayoddhya does not publish them —
+  // search engines ignore omitted fields, but empty strings would render
+  // visibly-broken JSON.
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Library",
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE_URL,
+    telephone: SITE.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "2nd, 3rd, 4th Floor, A-1/31,32, Sec-06 Rohini, Ayodhya Chowk",
+      addressLocality: "Delhi",
+      addressRegion: "Delhi",
+      postalCode: "110085",
+      addressCountry: "IN",
+    },
+    image: `${SITE_URL}/ayoddhya/hero/library-setup.jpg`,
+  };
+  if (SITE.email) {
+    jsonLd.email = SITE.email;
+  }
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
@@ -95,42 +122,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Library",
-              name: SITE.name,
-              description: SITE.description,
-              url: "https://atheneumstudy.com",
-              telephone: SITE.phone,
-              email: SITE.email,
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "14-B, Knowledge Park, Sector 62",
-                addressLocality: "Noida",
-                addressRegion: "Uttar Pradesh",
-                postalCode: "201309",
-                addressCountry: "IN",
-              },
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  opens: "06:00",
-                  closes: "23:00",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: ["Sunday"],
-                  opens: "06:00",
-                  closes: "22:00",
-                },
-              ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.9",
-                reviewCount: "4800",
-              },
-            }),
+            __html: JSON.stringify(jsonLd),
           }}
         />
       </head>

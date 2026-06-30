@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, MessageCircle, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Clock, MessageCircle, ArrowRight } from "lucide-react";
 import { SITE } from "@/lib/data";
 
 export default function Location() {
@@ -39,7 +39,7 @@ export default function Location() {
             transition={{ delay: 0.2 }}
             className="text-gray-500 text-lg"
           >
-            Conveniently located in Sector 62, Noida — easy to reach by metro, bus, or personal vehicle.
+            Three floors on Ayodhya Chowk, Sector 6 Rohini — easy to reach from anywhere in Delhi. Get directions on the map or contact us before you visit.
           </motion.p>
         </div>
 
@@ -59,7 +59,7 @@ export default function Location() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Athenaeum Study Hall Location"
+              title={`${SITE.name} Location`}
               className="w-full h-full"
             />
           </motion.div>
@@ -99,20 +99,19 @@ export default function Location() {
                   <Clock className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-navy-950 mb-3">Working Hours</h3>
+                  <h3 className="font-semibold text-navy-950 mb-3">Connect Hours</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Mon – Sat</span>
-                      <span className="font-medium text-navy-950">{SITE.hours.weekday}</span>
+                      <span className="text-gray-500">Communication</span>
+                      <span className="font-medium text-navy-950">24 / 7</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Sunday</span>
-                      <span className="font-medium text-navy-950">{SITE.hours.weekend}</span>
+                      <span className="text-gray-500">On-site hours</span>
+                      <span className="font-medium text-navy-950">Contact us</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Holidays</span>
-                      <span className="font-medium text-yellow-600">Closed</span>
-                    </div>
+                    <p className="text-gray-400 text-xs pt-2">
+                      For current on-site timings, reach us on WhatsApp before visiting.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -126,12 +125,15 @@ export default function Location() {
                   <Phone className="w-4 h-4 text-gold-500" />
                   {SITE.phone}
                 </a>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 text-sm text-gray-600 hover:text-navy-950 transition-colors">
-                  <Mail className="w-4 h-4 text-gold-500" />
-                  {SITE.email}
+                <a
+                  href={`tel:${SITE.landline.replace(/\s|-/g, "")}`}
+                  className="flex items-center gap-3 text-sm text-gray-600 hover:text-navy-950 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-gold-500" />
+                  {SITE.landline} <span className="text-xs text-gray-400">(landline)</span>
                 </a>
                 <a
-                  href={`https://wa.me/${SITE.whatsapp}`}
+                  href={SITE.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-gray-600 hover:text-emerald-600 transition-colors"
@@ -142,9 +144,9 @@ export default function Location() {
               </div>
             </div>
 
-            {/* Book CTA */}
-            <Link href="/booking" className="btn-gold w-full justify-center">
-              Book Your Visit
+            {/* Connect CTA */}
+            <Link href="/contact" className="btn-gold w-full justify-center">
+              Connect With Us
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>

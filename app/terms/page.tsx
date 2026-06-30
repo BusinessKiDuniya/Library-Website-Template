@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions",
-  description: "Athenaeum Study Hall Terms and Conditions — membership rules, usage policy, and legal agreement.",
+  title: "Terms & Conditions — Ayoddhya Library",
+  description: "Ayoddhya Library Terms and Conditions — membership rules, usage policy, and legal agreement.",
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -59,10 +59,10 @@ export default function TermsPage() {
             </ul>
           </Section>
           <Section title="6. Governing Law">
-            <p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Noida, Uttar Pradesh.</p>
+            <p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Delhi.</p>
           </Section>
           <Section title="7. Contact">
-            <p>For questions about these terms, contact us at {SITE.email} or {SITE.phone}.</p>
+            <p>For questions about these terms, contact us via WhatsApp at {SITE.phone}.</p>
           </Section>
         </div>
       </section>

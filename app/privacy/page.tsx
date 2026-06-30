@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Athenaeum Study Hall Privacy Policy — how we collect, use, and protect your personal information.",
+  title: "Privacy Policy — Ayoddhya Library",
+  description: "Ayoddhya Library Privacy Policy — how we collect, use, and protect your personal information.",
 };
 
 function PolicySection({ title, children }: { title: string; children: React.ReactNode }) {
@@ -60,13 +60,13 @@ export default function PrivacyPage() {
               <p>We implement appropriate technical and organisational measures to protect your personal information against unauthorised access, loss, or misuse. CCTV footage is stored securely and retained for 30 days before automatic deletion.</p>
             </PolicySection>
             <PolicySection title="6. Your Rights">
-              <p>You have the right to access, correct, or delete your personal data. To exercise these rights, please contact us at {SITE.email}.</p>
+              <p>You have the right to access, correct, or delete your personal data. To exercise these rights, please contact us via WhatsApp at {SITE.phone} or use the Connect Portal at {SITE.connectPortal}.</p>
             </PolicySection>
             <PolicySection title="7. Cookies">
               <p>Our website uses essential cookies for functionality and analytics cookies to understand how visitors use the site. You may disable cookies in your browser settings; however, this may affect website functionality.</p>
             </PolicySection>
             <PolicySection title="8. Contact Us">
-              <p>For any privacy-related concerns, contact us at {SITE.email} or {SITE.phone}.</p>
+              <p>For any privacy-related concerns, contact us via WhatsApp at {SITE.phone} or use the Connect Portal at {SITE.connectPortal}.</p>
             </PolicySection>
           </div>
         </div>

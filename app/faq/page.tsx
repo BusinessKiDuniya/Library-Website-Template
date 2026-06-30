@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import FAQClient from "./FAQClient";
 
 export const metadata: Metadata = {
-  title: "FAQ — Frequently Asked Questions",
+  title: "FAQ — Ayoddhya Library",
   description:
-    "Find answers to common questions about Athenaeum Study Hall — membership, bookings, rules, facilities, timings, and more.",
+    "Frequently asked questions about Ayoddhya Library — memberships, plans, timings, the Executive Room, Wall of Fame, and the Ayodhya Chowk study ecosystem.",
 };
 
 export default function FAQPage() {

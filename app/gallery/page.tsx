@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import GalleryClient from "./GalleryClient";
 
 export const metadata: Metadata = {
-  title: "Gallery — Photos & Videos of Athenaeum",
+  title: "Gallery — Ayoddhya Library",
   description:
-    "View photos and videos of Athenaeum Study Hall — study halls, private cabins, reading lounge, reception, parking, and more.",
+    "Photos of Ayoddhya Library's study spaces, cafeteria, Wall of Fame, Coffee with Sir sessions, and the Ayodhya Chowk ecosystem in Sector 6, Rohini.",
 };
 
 export default function GalleryPage() {

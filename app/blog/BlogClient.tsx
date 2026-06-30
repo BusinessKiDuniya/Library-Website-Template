@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Search, Clock, ArrowRight, Tag } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/data";
 
-const categories = ["All", "Productivity", "UPSC", "Study Tips", "CA Prep"];
+const categories = ["All", "Our Story", "Mentorship", "Philosophy", "Community", "Facilities"];
 
 export default function BlogClient() {
   const [search, setSearch] = useState("");
@@ -24,7 +24,7 @@ export default function BlogClient() {
 
   // Assign placeholders if post.image isn't provided in BLOG_POSTS yet
   const getPostImage = (post: typeof BLOG_POSTS[0]) => {
-    return post.image || "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=800";
+    return post.image || "/ayoddhya/hero/library-setup.jpg";
   };
 
   const featured = BLOG_POSTS.find((p) => p.featured);
@@ -43,12 +43,12 @@ export default function BlogClient() {
           </motion.span>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white mb-6">
-            Study Smarter,
-            <span className="italic text-gold-400"> Achieve More</span>
+            Insights from
+            <span className="italic text-gold-400"> Ayoddhya Library</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="text-gray-300 text-xl max-w-xl mx-auto mb-10">
-            Insights on focus, competitive exams, productivity, and the science of deep study.
+            Stories on focus, mentorship, the Teacher's Mindset, and what it really takes to shape tomorrow.
           </motion.p>
           
           {/* Search Box */}

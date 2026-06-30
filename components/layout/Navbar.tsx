@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Menu, X, ChevronDown, Phone } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_LINKS, SITE } from "@/lib/data";
 
@@ -62,23 +63,30 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
               <div className={cn(
-                "w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105",
-                isLight ? "bg-white/20 backdrop-blur-sm" : "bg-navy-950"
+                "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 overflow-hidden",
+                isLight ? "bg-white/90 backdrop-blur-sm" : "bg-white"
               )}>
-                <BookOpen className={cn("w-5 h-5", isLight ? "text-white" : "text-gold-500")} />
+                <Image
+                  src={SITE.logo}
+                  alt={`${SITE.name} logo`}
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-contain p-0.5"
+                  priority
+                />
               </div>
               <div className="leading-tight">
                 <span className={cn(
                   "font-display font-bold text-lg block leading-none transition-colors",
                   isLight ? "text-white" : "text-navy-950"
                 )}>
-                  Athenaeum
+                  {SITE.name}
                 </span>
                 <span className={cn(
                   "text-[10px] uppercase tracking-widest font-sans font-medium transition-colors",
-                  isLight ? "text-white/70" : "text-gold-500"
+                  isLight ? "text-white/70" : "text-gold-600"
                 )}>
-                  Study Hall
+                  Nurturing Minds
                 </span>
               </div>
             </Link>
@@ -165,7 +173,7 @@ export default function Navbar() {
                 {SITE.phone}
               </a>
               <Link
-                href="/booking"
+                href="/contact"
                 className={cn(
                   "px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5",
                   isLight
@@ -173,7 +181,7 @@ export default function Navbar() {
                     : "bg-navy-950 text-white hover:bg-navy-900 shadow-navy"
                 )}
               >
-                Book a Seat
+                Connect With Us
               </Link>
             </div>
 
@@ -215,10 +223,10 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
                 <Link href="/" className="flex items-center gap-2" onClick={() => setMobileOpen(false)}>
-                  <div className="w-8 h-8 rounded-lg bg-navy-950 flex items-center justify-center">
-                    <BookOpen className="w-4 h-4 text-gold-500" />
+                  <div className="w-8 h-8 rounded-lg bg-white border border-gray-100 flex items-center justify-center overflow-hidden">
+                    <Image src={SITE.logo} alt={`${SITE.name} logo`} width={32} height={32} className="w-full h-full object-contain p-0.5" />
                   </div>
-                  <span className="font-display font-bold text-navy-950">Athenaeum</span>
+                  <span className="font-display font-bold text-navy-950">{SITE.shortName}</span>
                 </Link>
                 <button onClick={() => setMobileOpen(false)} className="p-2 text-gray-500 hover:text-navy-950">
                   <X className="w-5 h-5" />
@@ -253,18 +261,20 @@ export default function Navbar() {
 
               <div className="p-6 border-t border-gray-100 space-y-3">
                 <a
-                  href={`https://wa.me/${SITE.whatsapp}`}
+                  href={SITE.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   {SITE.phone}
                 </a>
                 <Link
-                  href="/booking"
+                  href="/contact"
                   className="block w-full py-3 bg-navy-950 text-white rounded-xl text-sm font-semibold text-center hover:bg-navy-900 transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Book a Seat
+                  Connect With Us
                 </Link>
               </div>
             </motion.div>

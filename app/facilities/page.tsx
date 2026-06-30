@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FACILITIES, FEATURES } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Facilities — Premium Study Infrastructure",
+  title: "Facilities — Ayoddhya Library",
   description:
-    "Explore all Athenaeum Study Hall facilities: Study Hall, Private Cabins, Reading Lounge, AC, Wi-Fi, CCTV, Lockers, Parking, and more.",
+    "Explore all Ayoddhya Library facilities: smart AC study halls, the Executive Room for 10, building lift, dedicated cafeteria, lockers, CCTV, Wi-Fi, and more.",
 };
 
 export default function FacilitiesPage() {
@@ -28,21 +28,21 @@ export default function FacilitiesPage() {
       <section className="section-padding bg-[#FAFAFA]">
         <div className="section-container space-y-24">
           {FACILITIES.map((facility, i) => (
-            <div key={facility.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center`}>
+            <div key={facility.id} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className={i % 2 !== 0 ? "lg:order-2" : ""}>
-                <div className="relative rounded-3xl overflow-hidden aspect-[4/3] group"
-                  style={{ background: `url(${facility.image})`,
-                  backgroundPosition:"center",backgroundSize:"cover" }}>
-                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
-                    <div className="text-center text-white/50">
-                      <div className="w-20 h-20 rounded-3xl bg-white/10 flex items-center justify-center mx-auto mb-4">
-                        <span className="text-4xl">{["📚", "📖", "🏢", "🛎️", "☕", "🚗"][i % 6]}</span>
-                      </div>
-                      <p className="text-sm font-medium">{facility.title}</p>
-                    </div>
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-navy-950 uppercase tracking-widest">{facility.tag}</span>
+                <div className="relative rounded-3xl overflow-hidden aspect-[4/3] group bg-gray-100">
+                  <Image
+                    src={facility.image}
+                    alt={facility.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    style={{ objectFit: "cover" }}
+                    className="transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-navy-950 uppercase tracking-widest">
+                      {facility.tag}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -67,7 +67,7 @@ export default function FacilitiesPage() {
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {FEATURES.map((f, i) => (
+            {FEATURES.map((f) => (
               <div key={f.title} className="premium-card p-5 text-center group">
                 <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-gold-500/20 transition-colors">
                   <span className="text-gold-600 text-lg">✓</span>
@@ -82,8 +82,8 @@ export default function FacilitiesPage() {
       <section className="py-20 bg-navy-950">
         <div className="section-container text-center">
           <h2 className="font-display font-bold text-4xl text-white mb-4">Experience It In Person</h2>
-          <p className="text-gray-300 mb-8 max-w-lg mx-auto">Come in for a free 3-hour trial and see all our facilities first-hand.</p>
-          <Link href="/booking" className="btn-gold inline-flex">Book Free Trial <ArrowRight className="w-4 h-4" /></Link>
+          <p className="text-gray-300 mb-8 max-w-lg mx-auto">Connect with us via WhatsApp and visit Ayoddhya Library to experience the ecosystem in person.</p>
+          <Link href="/contact" className="btn-gold inline-flex">Connect With Us <ArrowRight className="w-4 h-4" /></Link>
         </div>
       </section>
     </div>

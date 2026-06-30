@@ -3,14 +3,14 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Star, Users, Wifi, Volume2, BookOpen, Award, BookMarked } from "lucide-react";
+import { ArrowRight, Star, Users, Wifi, Volume2, BookOpen, Award, BookMarked, Building2, Sparkles } from "lucide-react";
 import { STATS } from "@/lib/data";
 
 const FLOATING_BADGES = [
   { icon: Volume2, text: "Silent Zone", pos: "top-[22%] left-[10%]" },
-  { icon: Wifi, text: "1Gbps Wi-Fi", pos: "top-[30%] right-[10%]" },
-  { icon: Users, text: "4,800+ Members", pos: "bottom-[28%] left-[8%]" },
-  { icon: Star, text: "4.9★ Rating", pos: "bottom-[22%] right-[9%]" },
+  { icon: Building2, text: "Private Lift", pos: "top-[30%] right-[10%]" },
+  { icon: Users, text: "All Floors Open", pos: "bottom-[28%] left-[8%]" },
+  { icon: Star, text: "Mentor-Led", pos: "bottom-[22%] right:[9%]" },
 ];
 
 const STAT_ICONS = [Users, BookOpen, Award, BookMarked];
@@ -103,7 +103,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6 border border-amber-500/30 bg-amber-500/10 tracking-widest uppercase text-[10px] font-bold text-amber-400"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            Premium Study Environment
+            An Experimental Masterpiece
           </motion.div>
 
           {/* Core Header */}
@@ -111,9 +111,10 @@ export default function Hero() {
             variants={itemVariants}
             className="text-white text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight leading-[1.15] mb-6"
           >
-            Your Perfect Study <br />
+            Nurturing Minds,
+            <br />
             <span className="italic bg-gradient-to-r from-yellow-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">
-              Sanctuary
+              Shaping Tomorrow
             </span>
           </motion.h1>
 
@@ -122,7 +123,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
           >
-            Discover Noida's most sophisticated study library—a sanctuary designed explicitly for serious learners, researchers, and professional visionaries requiring absolute focus.
+            Ayoddhya Library — a sanctuary for the focused mind, curated with a Teacher's Mindset. Three floors of premium silence, oversized desks, private lift access, and the only Executive Room of its kind in the vicinity.
           </motion.p>
 
           {/* Action Directives */}
@@ -134,15 +135,15 @@ export default function Hero() {
               href="/booking"
               className="group w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-sm tracking-wide transition-all duration-200 hover:shadow-[0_0_24px_rgba(245,158,11,0.3)] active:scale-[0.98] flex items-center justify-center gap-2"
             >
-              Book a Seat Today
+              Connect With Us
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
 
             <Link
-              href="/membership"
+              href="/facilities"
               className="w-full sm:w-auto px-8 py-4 rounded-lg border border-slate-700 text-slate-200 font-semibold text-sm tracking-wide transition-all duration-200 hover:bg-white/5 hover:border-slate-500 text-center active:scale-[0.98]"
             >
-              View Plans
+              Explore the Ecosystem
             </Link>
           </motion.div>
         </motion.div>

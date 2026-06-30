@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { MapPin, Phone, Mail, Clock, MessageCircle, CheckCircle, Loader2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, CheckCircle, Loader2, PhoneCall } from "lucide-react";
 import { SITE } from "@/lib/data";
 
 const contactSchema = z.object({
@@ -18,31 +18,65 @@ const contactSchema = z.object({
 
 type ContactForm = z.infer<typeof contactSchema>;
 
-const contactInfo = [
+// Only render info cards for channels that actually exist in data.ts.
+// Email row is omitted when SITE.email is empty.
+type InfoCard = { icon: any; label: string; value: string; href: string };
+const infoCards: InfoCard[] = [
   { icon: Phone, label: "Phone", value: SITE.phone, href: `tel:${SITE.phone}` },
-  { icon: Mail, label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
-  { icon: MapPin, label: "Address", value: SITE.address, href: `https://maps.google.com/?q=${encodeURIComponent(SITE.address)}` },
-  { icon: MessageCircle, label: "WhatsApp", value: "Message us instantly", href: `https://wa.me/${SITE.whatsapp}` },
 ];
+if (SITE.landline) {
+  infoCards.push({
+    icon: PhoneCall,
+    label: "Landline",
+    value: SITE.landline,
+    href: `tel:${SITE.landline}`,
+  });
+}
+if (SITE.email) {
+  infoCards.push({
+    icon: Mail,
+    label: "Email",
+    value: SITE.email,
+    href: `mailto:${SITE.email}`,
+  });
+}
+infoCards.push({
+  icon: MapPin,
+  label: "Address",
+  value: SITE.address,
+  href: `https://maps.google.com/?q=${encodeURIComponent(SITE.address)}`,
+});
+infoCards.push({
+  icon: MessageCircle,
+  label: "WhatsApp",
+  value: "Chat with us instantly",
+  href: `https://wa.me/${SITE.whatsapp}`,
+});
 
-const socialLinks = [
+// Filter social links so empty href values don't render broken anchors.
+type SocialLink = { href: string; label: string; icon: ReactNode };
+const socialLinks: SocialLink[] = [
   {
-    href: SITE.social.instagram, label: "Instagram",
+    href: SITE.social.instagram,
+    label: "Instagram",
     icon: (<svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2}><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4.5" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>),
   },
   {
-    href: SITE.social.facebook, label: "Facebook",
+    href: SITE.social.facebook,
+    label: "Facebook",
     icon: (<svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>),
   },
   {
-    href: SITE.social.twitter, label: "Twitter",
+    href: SITE.social.twitter,
+    label: "Twitter",
     icon: (<svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>),
   },
   {
-    href: SITE.social.youtube, label: "YouTube",
+    href: SITE.social.youtube,
+    label: "YouTube",
     icon: (<svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12z" /></svg>),
   },
-];
+].filter((s) => s.href && s.href.length > 0);
 
 
 export default function ContactClient() {
@@ -57,6 +91,8 @@ export default function ContactClient() {
     setLoading(false);
     setSubmitted(true);
   };
+
+  const hasWeekendHours = SITE.hours.weekend && SITE.hours.weekend.trim().length > 0;
 
   return (
     <div className="pt-20">
@@ -75,7 +111,7 @@ export default function ContactClient() {
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="text-gray-300 text-xl max-w-xl mx-auto">
-            Questions, queries, or just want to know more? Reach out — we respond within 2 hours.
+            Questions, queries, or want to know more? The fastest way to reach us is WhatsApp — replies usually within minutes during the day.
           </motion.p>
         </div>
       </section>
@@ -86,7 +122,7 @@ export default function ContactClient() {
             {/* Left info */}
             <div className="lg:col-span-2 space-y-5">
               <h2 className="font-display font-bold text-3xl text-navy-950">Get In Touch</h2>
-              {contactInfo.map((info) => (
+              {infoCards.map((info) => (
                 <motion.a
                   key={info.label}
                   href={info.href}
@@ -110,27 +146,31 @@ export default function ContactClient() {
               <div className="premium-card p-5">
                 <div className="flex items-center gap-3 mb-4">
                   <Clock className="w-5 h-5 text-gold-500" />
-                  <h4 className="font-semibold text-navy-950">Working Hours</h4>
+                  <h4 className="font-semibold text-navy-950">Connect Hours</h4>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between"><span className="text-gray-500">Mon – Sat</span><span className="font-medium text-navy-950">{SITE.hours.weekday}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Sunday</span><span className="font-medium text-navy-950">{SITE.hours.weekend}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Holidays</span><span className="font-medium text-yellow-600">Closed</span></div>
+                  {hasWeekendHours && (
+                    <div className="flex justify-between"><span className="text-gray-500">Sunday</span><span className="font-medium text-navy-950">{SITE.hours.weekend}</span></div>
+                  )}
+                  <div className="flex justify-between"><span className="text-gray-500">WhatsApp</span><span className="font-medium text-emerald-600">24/7</span></div>
                 </div>
               </div>
 
-              {/* Social */}
-              <div>
-                <h4 className="font-semibold text-navy-950 mb-4">Follow Us</h4>
-                <div className="flex gap-3">
-                  {socialLinks.map(({ icon, href, label }) => (
-                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                      className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-navy-950 hover:text-navy-950 transition-all">
-                      {icon}
-                    </a>
-                  ))}
+              {/* Social — only render if at least one is present */}
+              {socialLinks.length > 0 && (
+                <div>
+                  <h4 className="font-semibold text-navy-950 mb-4">Follow Us</h4>
+                  <div className="flex gap-3">
+                    {socialLinks.map(({ icon, href, label }) => (
+                      <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                        className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-navy-950 hover:text-navy-950 transition-all">
+                        {icon}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Right form */}
@@ -174,7 +214,7 @@ export default function ContactClient() {
                     <CheckCircle className="w-8 h-8 text-emerald-600" />
                   </div>
                   <h3 className="font-display font-bold text-2xl text-navy-950 mb-3">Message Received!</h3>
-                  <p className="text-gray-500">We&apos;ll get back to you within 2 hours during working hours. Thank you!</p>
+                  <p className="text-gray-500">We&apos;ll get back to you soon. For faster replies, message us directly on WhatsApp.</p>
                 </motion.div>
               )}
             </div>
@@ -186,7 +226,7 @@ export default function ContactClient() {
       <section className="pb-20 bg-[#FAFAFA]">
         <div className="section-container">
           <div className="rounded-3xl overflow-hidden h-80 shadow-xl">
-            <iframe src={SITE.mapEmbed} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Library Location" />
+            <iframe src={SITE.mapEmbed} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Ayoddhya Library Location" />
           </div>
         </div>
       </section>
